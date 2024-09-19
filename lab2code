@@ -1,1 +1,96 @@
-vanya
+package org.example;
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.print("Введіть кількість студентів: ");
+
+        Scanner scan = new Scanner(System.in);
+        int n = scan.nextInt();
+        scan.nextLine();
+
+        Student[] student = new Student[n];
+        fillStudents(n, student);
+
+        System.out.println("Введіть факультет для знаходження");
+        String input = scan.nextLine();
+        studentsFromFaculty(student, input);
+
+        System.out.println("Введіть рік народження для порівняння");
+        int year = scan.nextInt();
+        scan.nextLine();
+        studentYounger(student, year);
+
+        System.out.println("Введіть групу для знаходження студентів");
+        input = scan.nextLine();
+        listOfGroup(student, input);
+    }
+
+    public static void fillStudents(int n, Student[] student) {
+        Scanner scan = new Scanner(System.in);
+        for (int i = 0; i < n; i++) {
+            System.out.println("Введіть id студента");
+            int id = scan.nextInt();
+            scan.nextLine();
+
+            System.out.println("Введіть ім'я студента");
+            String firstName = scan.nextLine();
+
+            System.out.println("Введіть прізвище студента");
+            String middleName = scan.nextLine();
+
+            System.out.println("Введіть по батькові студента");
+            String lastName = scan.nextLine();
+
+            System.out.println("Введіть дату народження студента");
+            String birthDate = scan.nextLine();
+
+            System.out.println("Введіть адресу студента");
+            String address = scan.nextLine();
+
+            System.out.println("Введіть номер телефону студента");
+            long phoneNumber = scan.nextLong();
+            scan.nextLine();
+
+            System.out.println("Введіть факультет студента");
+            String faculty = scan.nextLine();
+
+            System.out.println("Введіть курс студента");
+            int course = scan.nextInt();
+            scan.nextLine();
+
+            System.out.println("Введіть групу студента");
+            String group = scan.nextLine();
+
+            student[i] = new Student(id, firstName, middleName, lastName, birthDate,
+                    address, phoneNumber, faculty, course, group);
+        }
+    }
+    public static void studentsFromFaculty(Student[] student, String faculty){
+        for (int i = 0; i < student.length; i++){
+            if (student[i].getFaculty().equals(faculty)){
+                System.out.println(student[i]);
+            }
+        }
+    }
+
+    public static void studentYounger(Student[] student, int year){
+        for (int i = 0; i < student.length; i++){
+            String[] parts = student[i].getBirthDate().split("\\.");
+            String yearString = parts[2];
+            int year2 = Integer.parseInt(yearString);
+            if (year < year2) {
+                System.out.println(student[i]);
+            }
+        }
+    }
+
+    public static void listOfGroup(Student[] student, String group){
+        for (int i = 0; i < student.length; i++){
+            if (student[i].getGroup().equals(group)){
+                System.out.println(student[i]);
+            }
+        }
+    }
+}
